@@ -7,8 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 
-using Org.BouncyCastle.Crypto.TlsExt;
-
 using NetcodeIO.NET.Utils;
 using NetcodeIO.NET.Utils.IO;
 using NetcodeIO.NET.Internal;

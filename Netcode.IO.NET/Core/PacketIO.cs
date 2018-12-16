@@ -3,8 +3,6 @@
 using NetcodeIO.NET.Utils;
 using NetcodeIO.NET.Utils.IO;
 
-using Org.BouncyCastle.Crypto.TlsExt;
-
 namespace NetcodeIO.NET.Internal
 {
 	/// <summary>
@@ -58,7 +56,7 @@ namespace NetcodeIO.NET.Internal
 			int ret;
 			try
 			{
-				ret = AEAD_Chacha20_Poly1305.Encrypt(packetData, 0, packetDataLen, additionalData, nonce, key, outBuffer);
+				ret = CryptoUtils.Encrypt(packetData, 0, packetDataLen, additionalData, key, nonce, outBuffer);
 			}
 			catch (Exception e)
 			{
@@ -96,7 +94,7 @@ namespace NetcodeIO.NET.Internal
 			int ret;
 			try
 			{
-				ret = AEAD_Chacha20_Poly1305.Decrypt(packetData, 0, packetDataLen, additionalData, nonce, key, outBuffer);
+				ret = CryptoUtils.Decrypt(packetData, 0, packetDataLen, additionalData, key, nonce, outBuffer);
 			}
 			catch(Exception e)
 			{
@@ -128,7 +126,7 @@ namespace NetcodeIO.NET.Internal
 			int ret;
 			try
 			{
-				ret = AEAD_Chacha20_Poly1305.Encrypt(packetData, 0, 300 - Defines.MAC_SIZE, additionalData, nonce, key, outBuffer);
+				ret = CryptoUtils.Encrypt(packetData, 0, 300 - Defines.MAC_SIZE, additionalData, key, nonce, outBuffer);
 			}
 			catch (Exception e)
 			{
@@ -160,7 +158,7 @@ namespace NetcodeIO.NET.Internal
 			int ret;
 			try
 			{
-				ret = AEAD_Chacha20_Poly1305.Decrypt(packetData, 0, 300, additionalData, nonce, key, outBuffer);
+				ret = CryptoUtils.Decrypt(packetData, 0, 300, additionalData, key, nonce, outBuffer);
 			}
 			catch (Exception e)
 			{
@@ -195,7 +193,7 @@ namespace NetcodeIO.NET.Internal
 				writer.Write(sequence);
 			}
 
-			var ret = AEAD_Chacha20_Poly1305.Encrypt(privateConnectToken, 0, len - Defines.MAC_SIZE, additionalData, nonce, key, outBuffer);
+			var ret = CryptoUtils.Encrypt(privateConnectToken, 0, len - Defines.MAC_SIZE, additionalData, key, nonce, outBuffer);
 
 			BufferPool.ReturnBuffer(additionalData);
 			BufferPool.ReturnBuffer(nonce);
@@ -223,7 +221,7 @@ namespace NetcodeIO.NET.Internal
 				writer.Write(sequence);
 			}
 
-			var ret = AEAD_Chacha20_Poly1305.Decrypt(encryptedConnectToken, 0, len, additionalData, nonce, key, outBuffer);
+			var ret = CryptoUtils.Decrypt(encryptedConnectToken, 0, len, additionalData, key, nonce, outBuffer);
 
 			BufferPool.ReturnBuffer(additionalData);
 			BufferPool.ReturnBuffer(nonce);
