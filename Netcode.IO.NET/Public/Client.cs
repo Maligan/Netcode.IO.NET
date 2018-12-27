@@ -238,7 +238,7 @@ namespace NetcodeIO.NET
 			Connect(connectToken, true);
 		}
 
-		internal void Connect(byte[] connectToken, bool autoTick)
+		public void Connect(byte[] connectToken, bool autoTick)
 		{
 			if (state != ClientState.Disconnected)
 				throw new InvalidOperationException();
@@ -343,7 +343,7 @@ namespace NetcodeIO.NET
 			serverToClientKey = null;
 		}
 
-		internal void Tick(double time)
+		public void Tick(double time)
 		{
 			if (this.socket == null) return;
 
