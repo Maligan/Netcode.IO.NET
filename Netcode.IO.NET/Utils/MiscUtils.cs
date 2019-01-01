@@ -17,6 +17,8 @@ namespace NetcodeIO.NET.Utils
 
 		public static bool CompareEndpoint(this IPEndPoint lhs, IPEndPoint rhs, int port)
 		{
+			if (lhs.Address.Equals(IPAddress.Any)) return lhs.Port == port;
+			if (rhs.Address.Equals(IPAddress.Any)) return rhs.Port == port;
 			return lhs.Address.Equals(rhs.Address) && lhs.Port == port;
 		}
 
